@@ -6,7 +6,7 @@
 
 
 const maxScreenshotCount = 5
-const templatesLoc = 'templates/'
+const templatesLoc = 'https://raw.githubusercontent.com/Chopper2112/augerpackager/gh-pages/templates/'
 const validFileColor = 'skyblue'
 const invalidFileColor = 'rgb(255, 133, 133)'
 
