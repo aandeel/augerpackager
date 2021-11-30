@@ -1,1 +1,338 @@
-<h1>test</h1>
+<!-- 
+    Author: Lucian T.
+    August 2021
+    https://www.yeggs.org/ 
+-->
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<style>
+    .banner {
+        height: 100px;
+        line-height: 80px;
+        width: device-width;
+        background-color: rgb(73, 73, 73);
+    }
+
+    input[type=file]::file-selector-button {
+        padding: .2em .4em;
+        border-radius: .4em;
+        background-color: #a29bfe;
+        border: none;
+        transition: 0.2s;
+    }
+
+    input[type=file]::file-selector-button:hover {
+        background-color: #c2bff8;;
+    }
+
+    input[type=text],
+    select {
+        padding: .2em .6em;
+        border-radius: .4em;
+        background-color: rgb(187, 182, 255);
+        height: 25px;
+        font-size: 16px;
+        color: rgb(0, 0, 0);
+        position: relative;
+        border: none;
+        left: 30px;
+        outline-width: 0;
+        transition: 0.1s;
+    }
+
+    input[type=submit] {
+        width: 8%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 8px 8px;
+        margin: 8px 0;
+        border: none;
+        border-radius: .6em;
+        cursor: pointer;
+        font-size: large;
+        font-weight: bold;
+    }
+
+    input[type=submit]:hover {
+        background-color: #45a049;
+        transition: 0.1s;
+    }
+    
+    input[type=text]:hover {
+        background-color: rgb(170, 166, 226);
+        transition: 0.2s;
+    }
+
+    input[type=select]:hover {
+        background-color: rgb(170, 166, 226);
+        transition: 0.2s;
+    }
+
+    .column {
+        float: left;
+    }
+
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+</style>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Auger Packager</title>
+    <!-- <link rel="stylesheet" href="css/styles.css?v=1.0"> -->
+
+</head>
+
+<body style="background-color:rgb(37, 35, 35);">
+
+    <div class="banner">
+
+        <head>
+            <center>
+                <text style="color: white; font-weight: bold; font-size: xxx-large; font-family: Tahoma">
+                    Auger Packager
+                </text>
+            </center>
+            <link rel="icon" type="image/png"
+                href="https://cdn.discordapp.com/attachments/720431549106880642/863601298216976414/auger.png" />
+        </head>
+
+        <div align="left"><a href="https://www.yeggs.org" target="_blank"><img
+                    style="width:80px;height:80px;position:absolute;top:17px;left:15px"
+                    src="https://cdn.discordapp.com/attachments/720431549106880642/863599251170000916/yeggs.png"
+                    alt="Yeggs"></a></div>
+        <div align="right"><a href="https://minecraftsubmissionportal.azurewebsites.net/contentBrowser/BedrockVanilla"
+                target="_blank"><img style="width:80px;height:80px;position:absolute;top:17px;right:20px"
+                    src="https://cdn.discordapp.com/attachments/720431549106880642/863601298216976414/auger.png"
+                    alt="Auger"></a></div>
+    </div>
+
+    <div class="row" id="page">
+        <div class="column" id="column1" style="width: 25%">
+            <div class="space" style="height: 40px"></div>
+
+            <!-- OFFER TYPE -->
+            <label for="offertype"
+                style="color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px">Offer
+                Type</label><br>
+            <select id="offertype" style="height: 32px; font-size: small">
+                <option value="skins">Skins</option>
+                <option value="world">World</option>
+                <option value="world+skins">World + Skins</option>
+            </select><br>
+
+
+
+            <!-- OFFER NAME -->
+            <br>
+            <label for="name"
+                style="color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px">Offer
+                Name</label><br>
+            <span><input type="text" id="name" placeholder="Lucky Sus Teens" maxlength=30 style="width:120.672px;"><br></span>
+
+            <!-- VERSION -->
+            <br>
+            <label for="version"
+                style="color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px">
+                Version</label><br>
+            <span><input type="text" id="version" placeholder="1.0.0" value="1.0.0" maxlength=7 style="width:35.5938px"><br></span>
+
+            <!-- MC VERSION -->
+            <br>
+            <label for="mcversion" id="mcversionLabel"
+                style="display:none; color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px">
+                MC Version</label><br>
+            <span><input type="text" id="mcversion" placeholder="1.17" maxlength=4 style="display:none; width:31.1406px"><br></span>
+
+            <!-- ACRONYM -->
+            <br>
+            <label for="acronym" id="acronymLabel"
+                style="display:none; color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px">
+                Acronym</label><br>
+            <span><input type="text" maxlength=4 id="acronym" placeholder="LST" style="display:none; width:29.3438px"><br></span>
+
+            <!-- MANIFEST UUID -->
+            <br>
+            <label id="manifestuuidLabel" for="manifestuuid"
+                style="display:none; color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px">
+                Manifest UUID (from previous version)</label><br>
+            <span><input style="font-size: small; display:none; width:246.5px" , type="text" id="manifestuuid" placeholder="7cad534a-c572-4a38-8497-0ac6ead47e53" maxlength=40><br></span>
+
+            <!-- WORLD -->
+            <br>
+            <label for="world" id="worldLabel"
+                style="color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px; display:none">World
+                Folder</label><br>
+            <input onchange="this.style.color='skyblue'" type="file" id="world"
+                style="color:rgb(255, 133, 133); position:relative; left:30px; display:none">
+
+            <!-- BEHAVIOR PACK -->
+            <br><br>
+            <label for="behaviorPack" id="behaviorPackLabel"
+                style="color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px; display:none">Resource
+                Pack</label><br>
+            <input onchange="this.style.color='skyblue'" type="file" id="behaviorPack"
+                style="color:rgb(255, 133, 133); position:relative; left:30px; display:none">
+
+            <!-- RESOURCE PACK -->
+            <br><br>
+            <label for="resourcePack" id="resourcePackLabel"
+                style="color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px; display:none">Behavior
+                Pack</label><br>
+            <input onchange="this.style.color='skyblue'" type="file" id="resourcePack"
+                style="color:rgb(255, 133, 133); position:relative; left:30px; display:none">
+        </div>
+
+
+
+
+
+
+
+        <div class="column" id="column2" style="width: 30%;" align="center"><br>
+
+            <!-- SKINS UPLOAD -->
+            <label for="skins" id="skinsLabel"
+                style="color: white; font-size: medium; font-family: Tahoma; position:relative; right:30px; display:inline">Skins
+                Folder (.png)</label><br>
+            <input type="file" webkitdirectory mozdirectory id="skins"
+                style="color:rgb(255, 133, 133); position:relative; left:30px; display:inline"><br>
+
+
+            <!-- Skin Texture File -->
+            <br><br><div class="column" id="fileNames" style="width: 134px">
+                <label id="skinsFileListLabel" for="skinsFileList"
+                    style="color:white; font-size:medium; font-family:Tahoma; position:relative; display:none; text-align:center;">&emsp;Skin Texture</label><br>
+                <input type="text" id="skinsFileList" readonly
+                    style="width: 120px; height: 15px; font-size: small; background-color:rgb(136, 136, 136); color:black; display:none; border-width:1px; border-radius:0em; border-style:solid; border-color:rgb(37, 35, 35)">
+            </div>
+
+            <!-- Skin Type -->
+            <div class="column" id="skinTypes" style="width: 94px">
+                <label id="skinsTypeListLabel" for="skinsTypeList"
+                    style="color:white; font-size:medium; font-family:Tahoma; position:relative; display:none; text-align:center;">&ensp;Model</label><br>
+                    <input type="text" id="skinsTypeList" readonly
+                    style="width: 80px; height: 15px; font-size: small; background-color:rgb(136, 136, 136); color:black; display:none; border-width:1px; border-radius:0em; border-style:solid; border-color:rgb(37, 35, 35)">
+            </div>
+                    
+            <!-- Skin Name -->
+            <div class="column" id="skinNames" style="width: 120px">
+                <label id="skinsNameListLabel" for="skinsNameList"
+                    style="color:white; font-size:medium; font-family:Tahoma; position:relative; display:none; text-align:center;">&emsp;Skin Name</label><br>
+                <input type="text" id="skinsNameList"
+                    style="width: 100px; height: 15px; font-size: small; display:none; border-width:1px; border-radius:0em; border-style:solid; border-color:rgb(37, 35, 35)">
+            </div>
+
+            <!-- Skin Preview -->
+            <div class="column" id="skinPreviews" style="width: 16px; position:relative; left:24px; top:24px">
+                <img id="skinPreview" style="display:none; width:16px; height:16px; position:absolute; top:0px" src="https://cdn.discordapp.com/attachments/622866435135373322/875487106561089576/Amberlin.png">
+            </div>
+        </div>
+
+
+
+
+
+
+
+        
+        <div class="column" id="column3" style="width: 20%">
+            <!-- Key Art -->
+            <br>
+            <label for="keyart" id="keyartLabel"
+                style="color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px; display:inline">Key Art (1920x1080 .jpg)</label><br>
+            <input type="file" id="keyart"
+                style="color:rgb(255, 133, 133); position:relative; left:30px; display:inline">
+            <div id="keyartImages" style="position:relative; left:30px">
+                <img id="keyartImage" style="display:none">
+            </div>
+
+            <!-- Partner Art -->
+            <br>
+            <label for="partnerart" id="partnerartLabel"
+                style="color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px; display:inline">Partner Art (1920x1080 .png)</label><br>
+            <input type="file" id="partnerart"
+                style="color:rgb(255, 133, 133); position:relative; left:30px; display:inline">
+            <div id="partnerartImages" style="position:relative; left:30px">
+                <img id="partnerartImage" style="display:none">
+            </div>
+
+            <!-- HD Screenshots -->
+            <br>
+            <label for="screenshotsHD" id="screenshotsHDLabel"
+                style="color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px; display:none">HD Screenshots Folder (1920x1080 .jpg)</label><br>
+            <input type="file" id="screenshotsHD" webkitdirectory mozdirectory
+                style="color:rgb(255, 133, 133); position:relative; left:30px; display:none">
+            <div class="row" id="screenshotImagesHD" style="position:relative;left:30px">
+                <img id="screenshotImageHD" style="width:128px; height:72px; display:none">
+            </div>
+
+            <!-- Panorama -->
+            <br>
+            <label for="panorama" id="panoramaLabel"
+                style="color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px; display:none">Panorama (1000-4000x450 .jpg)</label><br>
+            <input type="file" id="panorama"
+                style="color:rgb(255, 133, 133); position:relative; left:30px; display:none">
+            <div id="panoramaImages" style="position:relative; left:30px; display:none">
+                <img id="panoramaImage" style="display:none">
+            </div>
+
+            <!-- PACKAGE BUTTON -->
+            <div><input type="submit" value="PACKAGE" id="package" style="position:absolute; bottom:5%; left:5%; width:200px"></div>
+        </div>
+
+
+
+        <div class="column" id="column4" style="width: 20%; display:none">
+            <!-- World Icon -->
+            <br>
+            <label for="worldicon" id="worldiconLabel"
+                style="color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px; display:inline">World Icon (800x450 .jpg)</label><br>
+            <input type="file" id="worldicon"
+                style="color:rgb(255, 133, 133); position:relative; left:30px; display:inline">
+            <div id="worldiconImages" style="position:relative; left:30px">
+                <img id="worldiconImage" style="display:none">
+            </div>
+
+            <!-- Pack Icon -->
+            <br>
+            <label for="packicon" id="packiconLabel"
+                style="color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px; display:inline">Pack Icon (256x256 .jpg)</label><br>
+            <input type="file" id="packicon"
+                style="color:rgb(255, 133, 133); position:relative; left:30px; display:inline">
+            <div id="packiconImages" style="position:relative; left:30px">
+                <img id="packiconImage" style="display:none">
+            </div>
+
+            <!-- Screenshots -->
+            <br>
+            <label for="screenshots" id="screenshotsLabel"
+                style="color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px">Screenshots Folder (800x450 .jpg)</label><br>
+            <input type="file" id="screenshots" webkitdirectory mozdirectory
+                style="color:rgb(255, 133, 133); position:relative; left:30px;">
+            <div class="row" id="screenshotImages" style="position:relative;left:30px">
+                <img id="screenshotImage" style="width:128px; height:72px; display:none">
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- JAVASCRIPT -->
+    <script type="text/javascript" src="lib/jszip.js"></script>
+    <script src="scripts.js"></script>
+
+</body>
+
+</html>

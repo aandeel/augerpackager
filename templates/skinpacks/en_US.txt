@@ -1,0 +1,2 @@
+skinpack.$skinpack=$skinpackName
+$skinsLang

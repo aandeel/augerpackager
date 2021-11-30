@@ -1,0 +1,7 @@
+{
+	"skins": [
+		$skins
+	],
+	"serialize_name": "$skinpack",
+	"localization_name": "$skinpack"
+}
