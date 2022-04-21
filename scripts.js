@@ -6,7 +6,7 @@
 
 
 const maxScreenshotCount = 5
-const templatesLoc = 'https://raw.githubusercontent.com/luciankt/augerpackager/main/templates/'
+const templatesLoc = 'https://raw.githubusercontent.com/Chopper2112/augerpackager/main/templates/'
 const validFileColor = 'skyblue'
 const invalidFileColor = 'rgb(255, 133, 133)'
 
@@ -323,7 +323,7 @@ skins.onchange = async () => {
                     var skinEntryName = document.getElementById("skinsNameList");
                     var newSkinEntryName = skinEntryName.cloneNode(true);
                     newSkinEntryName.removeAttribute("id");
-                    newSkinEntryName.value = toTitleCase(skin.name.replaceAll(".png", "").replaceAll("_a", "").replaceAll("_s", "").replaceAll("_", " ").replaceAll("-", " "));
+                    newSkinEntryName.value = toTitleCase(skin.name.replaceAll(".png", "").replaceAll("_a", "").replaceAll("_s", "").replaceAll("_", " ").replaceAll("-", " ").replaceAll("-", " ").replaceAll("a_", "").replaceAll("s_", ""));
                     newSkinEntryName.style.display = "block";
                     document.getElementById("skinNames").appendChild(newSkinEntryName);
 
