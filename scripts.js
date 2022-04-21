@@ -323,7 +323,7 @@ skins.onchange = async () => {
                     var skinEntryName = document.getElementById("skinsNameList");
                     var newSkinEntryName = skinEntryName.cloneNode(true);
                     newSkinEntryName.removeAttribute("id");
-                    newSkinEntryName.value = toTitleCase(skin.name.replaceAll(".png", "").replaceAll("_a", "").replaceAll("_s", "").replaceAll("_", " ").replaceAll("-", " ").replaceAll("-", " ").replaceAll("a_", "").replaceAll("s_", ""));
+                    newSkinEntryName.value = toTitleCase(skin.name.replaceAll(".png", "").replaceAll("_a", "").replaceAll("a_", "").replaceAll("s_", "").replaceAll("_s", "").replaceAll("_", " ").replaceAll("-", " ").replaceAll("-", " "));
                     newSkinEntryName.style.display = "block";
                     document.getElementById("skinNames").appendChild(newSkinEntryName);
 
