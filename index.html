@@ -125,6 +125,8 @@
                 Type</label><br>
             <select id="offertype" style="height: 32px; font-size: small">
                 <option value="skins">Skins</option>
+                <option value="world">World</option>
+                <option value="world+skins">World + Skins</option>
             </select><br>
 
 
@@ -204,34 +206,40 @@
             <input type="file" webkitdirectory mozdirectory id="skins"
                 style="color:rgb(255, 133, 133); position:relative; left:30px; display:inline"><br>
 
+            <!-- Free Skin Checkbox -->
+            <div class="column" id="freeCheckboxes" style="width:16px; position:relative; right:6px; top:57px">
+                <label id="freeCheckboxesLabel" for="freeCheckboxes"
+                    style="color:white; font-size:small; font-family:Tahoma; position:relative; display:none; text-align:center; bottom:16px; left:8px">Free</label><br>
+                <input type="checkbox" id="freeCheckbox" style="display:none; width:16px; height:16px; position:absolute; top:0px">
+            </div>
 
             <!-- Skin Texture File -->
-            <br><br><div class="column" id="fileNames" style="width: 134px">
+            <br><br><div class="column" id="fileNames" style="width:134px">
                 <label id="skinsFileListLabel" for="skinsFileList"
-                    style="color:white; font-size:medium; font-family:Tahoma; position:relative; display:none; text-align:center;">&emsp;Skin Texture</label><br>
+                    style="color:white; font-size:medium; font-family:Tahoma; position:relative; display:none; text-align:center; left:32px;">Skin Texture</label><br>
                 <input type="text" id="skinsFileList" readonly
                     style="width: 120px; height: 15px; font-size: small; background-color:rgb(136, 136, 136); color:black; display:none; border-width:1px; border-radius:0em; border-style:solid; border-color:rgb(37, 35, 35)">
             </div>
 
             <!-- Skin Type -->
-            <div class="column" id="skinTypes" style="width: 94px">
+            <div class="column" id="skinTypes" style="width:94px">
                 <label id="skinsTypeListLabel" for="skinsTypeList"
-                    style="color:white; font-size:medium; font-family:Tahoma; position:relative; display:none; text-align:center;">&ensp;Model</label><br>
-                    <input type="text" id="skinsTypeList" readonly
+                    style="color:white; font-size:medium; font-family:Tahoma; position:relative; display:none; text-align:center; left:32px;">Model</label><br>
+                <input type="text" id="skinsTypeList" readonly
                     style="width: 80px; height: 15px; font-size: small; background-color:rgb(136, 136, 136); color:black; display:none; border-width:1px; border-radius:0em; border-style:solid; border-color:rgb(37, 35, 35)">
             </div>
                     
             <!-- Skin Name -->
             <div class="column" id="skinNames" style="width: 120px">
                 <label id="skinsNameListLabel" for="skinsNameList"
-                    style="color:white; font-size:medium; font-family:Tahoma; position:relative; display:none; text-align:center;">&emsp;Skin Name</label><br>
+                    style="color:white; font-size:medium; font-family:Tahoma; position:relative; display:none; text-align:center; left:32px;">Skin Name</label><br>
                 <input type="text" id="skinsNameList"
                     style="width: 100px; height: 15px; font-size: small; display:none; border-width:1px; border-radius:0em; border-style:solid; border-color:rgb(37, 35, 35)">
             </div>
 
             <!-- Skin Preview -->
             <div class="column" id="skinPreviews" style="width: 16px; position:relative; left:24px; top:24px">
-                <img id="skinPreview" style="display:none; width:16px; height:16px; position:absolute; top:0px" src="https://cdn.discordapp.com/attachments/622866435135373322/875487106561089576/Amberlin.png">
+                <img id="skinPreview" style="display:none; width:16px; height:16px; position:absolute; top:0px" src="">
             </div>
         </div>
 

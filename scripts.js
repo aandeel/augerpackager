@@ -272,10 +272,14 @@ skins.onchange = async () => {
     skinsFileList = document.getElementById("fileNames").children
     skinsNameList = document.getElementById("skinNames").children
     skinsTypeList = document.getElementById("skinTypes").children
+    skinsPreviewsList = document.getElementById("skinPreviews").children
+    freeCheckboxesList = document.getElementById("freeCheckboxes").children
     for (let i = skinsFileList.length-1; i > 2; i--) {
         skinsFileList[i].remove();
         skinsNameList[i].remove();
         skinsTypeList[i].remove();
+        freeCheckboxesList[i].remove();
+        try { skinsPreviewsList[i].remove(); } catch(e) { console.log(e) }
     }
 
     // Add skins to list if file added
@@ -285,6 +289,7 @@ skins.onchange = async () => {
         skins.style.color = validFileColor
 
         // Show labels
+        freeCheckboxesLabel.style.display = "inline"
         skinsFileListLabel.style.display = "inline"
         skinsNameListLabel.style.display = "inline"
         skinsTypeListLabel.style.display = "inline"
@@ -295,12 +300,13 @@ skins.onchange = async () => {
             // Check file type
             if(!skin.name.includes(".png")) {
                 alert(skin.name+" is an invalid file type. Skins should be .png")
-                continue;
+                continue
             }
 
             // Create image using skin texture to determine model & definition //
             /* Make image element with skin texture image */
-            const skinImg = new Image()  
+            const skinImg = new Image()
+            skinImg.src = URL.createObjectURL(skin)
 
             /* Make canvas element */
             skinImg.onload = () => {
@@ -338,10 +344,17 @@ skins.onchange = async () => {
                     var skinPreview = document.getElementById("skinPreview");
                     var newSkinPreview = skinPreview.cloneNode(true);
                     newSkinPreview.removeAttribute("id");
-                    newSkinPreview.style.display = "inline";
-                    newSkinPreview.style.top = i*22.185+'px'
                     newSkinPreview.src = createSkinPreview(skinImg)
                     document.getElementById("skinPreviews").appendChild(newSkinPreview);
+
+                    // Add free checkbox
+                    var skinPreview = document.getElementById("freeCheckbox");
+                    var newCheckbox = freeCheckbox.cloneNode(true);
+                    newCheckbox.removeAttribute("id");
+                    newCheckbox.style.display = "inline";
+                    newCheckbox.style.top = i*22.185+'px'
+                    newCheckbox.value = i
+                    document.getElementById("freeCheckboxes").appendChild(newCheckbox);
 
                     // Fill out Details info
                     if(skinImg.width == 64) {
@@ -367,8 +380,14 @@ skins.onchange = async () => {
                     }
                 }, 100)
             }
-            skinImg.src = URL.createObjectURL(skin)
         }
+        setTimeout(() => {
+            for(let i = 1; i < skinsPreviewsList.length; i++) {
+                console.log(skinsPreviewsList[i].src)
+                skinsPreviewsList[i].style.top = (i-1)*22.185+'px'
+                skinsPreviewsList[i].style.display = "inline";
+            }
+        },500)
     } 
 
     // Remove skins if file removed
@@ -378,9 +397,11 @@ skins.onchange = async () => {
         skins.style.color = invalidFileColor
 
         // Hide labels
+        document.getElementById("freeCheckboxesLabel").style.display = "none"
         document.getElementById("skinsFileListLabel").style.display = "none"
         document.getElementById("skinsNameListLabel").style.display = "none"
         document.getElementById("skinsTypeListLabel").style.display = "none"
+        document.getElementById("skinsPreviewsList").style.display = "none"
     }
 }
 
@@ -620,6 +641,7 @@ async function packageSkinpack(zip) {
     skinsFileList = document.getElementById("fileNames").children
     skinsNameList = document.getElementById("skinNames").children
     skinsTypeList = document.getElementById("skinTypes").children
+    freeCheckboxesList = document.getElementById("freeCheckboxes").children
     skinFiles = Array.from(document.getElementById('skins').files)
     keyartFile = document.getElementById('keyart').files[0]
     partnerartFile = document.getElementById('partnerart').files[0]
@@ -668,6 +690,17 @@ async function packageSkinpack(zip) {
             skinFilename = skinsFileList[i].value
             skinFile = skinFiles.find(element => element.name === skinFilename)
 
+            // Get pay type by iterating through each checkbox by ID (.value) because the order is jumbled for some reason
+            payType = 'paid'
+            for(let c = 3; c < freeCheckboxesList.length; c++) {
+                if(freeCheckboxesList[c].value == i-3) {
+                    if(freeCheckboxesList[c].checked) {
+                        payType = 'free'
+                    }
+                    break
+                }
+            }
+
             // Set new file name & geometry
             if(skinGeometry.includes('Slim')) {
                 skinFilename = skinID+'_a.png'
@@ -682,7 +715,7 @@ async function packageSkinpack(zip) {
             if(!skinGeometry.includes('INVALID')) {
 
                 // Create entries for skins.json & en_US.json
-                skins += skinEntryTemplate.replace("$skinFile", skinFilename).replace("$skinGeometry", skinGeometry).replace("$skin", skinID)
+                skins += skinEntryTemplate.replace("$skinFile", skinFilename).replace("$skinGeometry", skinGeometry).replace("$skin", skinID).replace("$payType", payType)
                 skinsLang += 'skin.'+skinpackID+'.'+skinID+'='+skinName
                 if(i + 1 < skinsFileList.length) { skins += ',\n'; skinsLang += '\n' }
 
@@ -756,6 +789,11 @@ function createSkinPreview(skinImg) {
     context.imageSmoothingEnabled = false;
 
     // Crop & resize, and return src
-    context.drawImage(skinImg, 8, 8, 8, 8, 0, 0, skinImg.width, skinImg.height)
+    if(canvas.width == 64) {
+        context.drawImage(skinImg, 8, 8, 8, 8, 0, 0, skinImg.width, skinImg.height)
+    }
+    else if(canvas.width == 128) {
+        context.drawImage(skinImg, 16, 16, 16, 16, 0, 0, skinImg.width, skinImg.height)
+    }
     return canvas.toDataURL()
 }
