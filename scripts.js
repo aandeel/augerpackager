@@ -387,7 +387,7 @@ skins.onchange = async () => {
                 skinsPreviewsList[i].style.top = (i-1)*22.185+'px'
                 skinsPreviewsList[i].style.display = "inline";
             }
-        },500)
+        },1000)
     } 
 
     // Remove skins if file removed
