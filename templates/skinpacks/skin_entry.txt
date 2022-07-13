@@ -2,5 +2,5 @@
     "localization_name": "$skin",
     "geometry": "geometry.humanoid.$skinGeometry",
     "texture": "$skinFile",
-    "type": "paid"
+    "type": "$payType"
 }
