@@ -1,0 +1,17 @@
+{
+	"format_version": 2,
+	"header": {
+		"description": "pack.description",
+		"name": "pack.name",
+		"uuid": "$uuid1",
+		"version": [$version],
+		"min_engine_version": [$mcversion]
+	},
+	"modules": [
+		{
+			"type": "resources",
+			"uuid": "$uuid2",
+			"version": [1, 0, 0]
+		}
+	]
+}
