@@ -1,0 +1,21 @@
+{
+	"format_version": 2,
+	"header": {
+		"name": "pack.name",
+		"description": "pack.description",
+		"version": [$version],
+		"uuid": "$uuid1",
+		"lock_template_options": true,
+		"base_game_version": [1, 19, 0]
+	},
+	"modules": [
+		{
+			"version": [1, 0, 0],
+			"type": "world_template",
+			"uuid": "$uuid2"
+		}
+	],
+	"metadata": {
+		"authors": ["Yeggs"]
+	}
+}
