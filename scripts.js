@@ -1,5 +1,5 @@
 /* 
-    Author: Lucian T. 
+    Author: Lucian Tash
     August 2022
     https://www.yeggs.org/
 */
