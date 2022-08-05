@@ -1,6 +1,6 @@
 /* 
     Author: Lucian T. 
-    August 2021
+    August 2022
     https://www.yeggs.org/
 */
 
@@ -112,13 +112,13 @@ partnerart.onchange = async () => {
 }
 
 // Handle worldicon when uploaded
-worldicon.onchange = async () => {
-    processAssetUpload(worldicon, "World Icon", 800, 450, "jpg")
-}
+// worldicon.onchange = async () => {
+//     processAssetUpload(worldicon, "World Icon", 800, 450, "jpg")
+// }
 
 // Handle packicon when uploaded
 packicon.onchange = async () => {
-    processAssetUpload(packicon, "Pack Icon", 256, 256, "jpg")
+    processAssetUpload(packicon, "Pack Icon", 256, 256, "png")
 }
 
 // Handle HD screenshots when uploaded
@@ -190,77 +190,81 @@ screenshotsHD.onchange = async () => {
 }
 
 // Handle screenshots when uploaded
-screenshots.onchange = async () => {
+// screenshots.onchange = async () => {
 
-    // Delete each screenshot
-    screenshotImages = document.getElementById("screenshotImages").children
-    for (let i = screenshotImages.length-1; i > 0; i--) {
-        screenshotImages[i].remove();
-    }
+//     // Delete each screenshot
+//     screenshotImages = document.getElementById("screenshotImages").children
+//     for (let i = screenshotImages.length-1; i > 0; i--) {
+//         screenshotImages[i].remove();
+//     }
 
-    if(screenshots.value) {
-        if(screenshots.files.length == maxScreenshotCount) { // Check for exactly 5 screenshots
+//     if(screenshots.value) {
+//         if(screenshots.files.length == maxScreenshotCount) { // Check for exactly 5 screenshots
 
-            // Set upload button text color to blue
-            screenshots.style.color = validFileColor
+//             // Set upload button text color to blue
+//             screenshots.style.color = validFileColor
 
 
-            var breakLoop;
-            for (let i = 0; i < maxScreenshotCount; i++) {
+//             var breakLoop;
+//             for (let i = 0; i < maxScreenshotCount; i++) {
                 
-                const screenshot = screenshots.files[i]
+//                 const screenshot = screenshots.files[i]
             
-                // Check file type
-                if(!screenshot.name.includes(".jpg")) {
-                    invalidUpload(screenshots, screenshot.name+" is an invalid file type. Screenshots should be .jpg")
-                    breakLoop = true;
-                }
+//                 // Check file type
+//                 if(!screenshot.name.includes(".jpg")) {
+//                     invalidUpload(screenshots, screenshot.name+" is an invalid file type. Screenshots should be .jpg")
+//                     breakLoop = true;
+//                 }
 
-                // Create image using screenshot texture to check size and format //
-                /* Make image element with screenshot */
-                const image = new Image()
+//                 // Create image using screenshot texture to check size and format //
+//                 /* Make image element with screenshot */
+//                 const image = new Image()
 
-                /* Make canvas element */
-                image.onload = () => {
-                    setTimeout(() => {
+//                 /* Make canvas element */
+//                 image.onload = () => {
+//                     setTimeout(() => {
 
-                        // Check dimensions of screenshot
-                        if(image.width != 800 || image.height != 450) {
-                            invalidUpload(screenshots, screenshots.files[i].name+" must be 800x450 pixels in size, but is "+image.width+"x"+image.height+".")
+//                         // Check dimensions of screenshot
+//                         if(image.width != 800 || image.height != 450) {
+//                             invalidUpload(screenshots, screenshots.files[i].name+" must be 800x450 pixels in size, but is "+image.width+"x"+image.height+".")
                             
-                            breakLoop = true; // break statement not working, so boolean flag to break loop
+//                             breakLoop = true; // break statement not working, so boolean flag to break loop
 
-                            // Delete all screenshots & end loop if invalid image detected
-                            for (let i = screenshotImages.length-1; i > 0; i--) {
-                                screenshotImages[i].remove();
-                            }
-                        }
-                        else if(!breakLoop) {
+//                             // Delete all screenshots & end loop if invalid image detected
+//                             for (let i = screenshotImages.length-1; i > 0; i--) {
+//                                 screenshotImages[i].remove();
+//                             }
+//                         }
+//                         else if(!breakLoop) {
 
-                            // Display image
-                            var screenshotImage = document.getElementById("screenshotImage");
-                            var newScreenshotImage = screenshotImage.cloneNode(true)
-                            newScreenshotImage.id = "screenshot"+i
-                            document.getElementById("screenshotImages").appendChild(newScreenshotImage);
-                            newScreenshotImage.style.display = "inline"
-                            newScreenshotImage.src = URL.createObjectURL(screenshot)
-                        }
+//                             // Display image
+//                             var screenshotImage = document.getElementById("screenshotImage");
+//                             var newScreenshotImage = screenshotImage.cloneNode(true)
+//                             newScreenshotImage.id = "screenshot"+i
+//                             document.getElementById("screenshotImages").appendChild(newScreenshotImage);
+//                             newScreenshotImage.style.display = "inline"
+//                             newScreenshotImage.src = URL.createObjectURL(screenshot)
+//                         }
                  
                     
-                    }, 200)
-                }
-                image.src = URL.createObjectURL(screenshot)
-            }
-        } 
-        else { // Not exactly 5 screenshots
-            invalidUpload(screenshots, "There must be exactly 5 screenshots. You uploaded "+screenshots.files.length+".")
-        }
-    } 
+//                     }, 200)
+//                 }
+//                 image.src = URL.createObjectURL(screenshot)
+//             }
+//         } 
+//         else { // Not exactly 5 screenshots
+//             invalidUpload(screenshots, "There must be exactly 5 screenshots. You uploaded "+screenshots.files.length+".")
+//         }
+//     } 
 
-    else {
-        // Set upload button text color to red if file removed
-        screenshots.style.color = invalidFileColor
-    }
+//     else {
+//         // Set upload button text color to red if file removed
+//         screenshots.style.color = invalidFileColor
+//     }
+// }
+
+world.onchange = async () => {
+    world.style.color = validFileColor
 }
 
 // Handle skins when uploaded
@@ -274,7 +278,7 @@ skins.onchange = async () => {
     skinsTypeList = document.getElementById("skinTypes").children
     skinsPreviewsList = document.getElementById("skinPreviews").children
     freeCheckboxesList = document.getElementById("freeCheckboxes").children
-    for (let i = skinsFileList.length-1; i > 2; i--) {
+    for (let i = skinsFileList.length-1; i > 2; i--) { //remove existing skins
         skinsFileList[i].remove();
         skinsNameList[i].remove();
         skinsTypeList[i].remove();
@@ -463,6 +467,7 @@ document.getElementById('offertype').addEventListener('input', function (e) { sh
 // Show elements based on offer type selected
 const showOfferSpecificFields = function (offertype) {
 
+    nameInput = document.getElementById('name')
     mcversionInput = document.getElementById('mcversion')
     mcversionLabel = document.getElementById('mcversionLabel')
     acronymInput = document.getElementById('acronym')
@@ -501,6 +506,12 @@ const showOfferSpecificFields = function (offertype) {
     mcversionInput.style.display = 'none'
     mcversionLabel.style.display = 'none'
 
+    if (offertype.includes("skins")) {
+        skinsColumn.style.display = 'block'
+        nameInput.placeholder = 'Anime Sus Teens'
+        nameInput.style.width = setWidth(nameInput)
+    }
+
     if (offertype.includes("world")) {
         mcversionInput.style.display = 'inline'
         mcversionLabel.style.display = 'inline'
@@ -519,12 +530,12 @@ const showOfferSpecificFields = function (offertype) {
         panoramaLabel.style.display = 'inline'
         panoramaInput.style.display = 'inline'
         panoramaImages.style.display = 'inline'
-    }
 
-    if (offertype.includes("skins")) {
-        skinsColumn.style.display = 'block'
+        nameInput.placeholder = 'Capybara Moai Island'
+        nameInput.style.width = setWidth(nameInput)
+        acronymInput.placeholder = 'CBMI'
+        acronymInput.style.width = setWidth(acronymInput)      
     }
-
 }
 
 // Show Manifest UUID field if version is not 1.0.0
@@ -580,6 +591,18 @@ packageButton.onclick = async function () {
     else if(offertype.includes("skins") && !document.getElementById('skins').value) {
         alert('You need to upload a folder of Skins!')
     }
+    else if(offertype.includes("world") && !document.getElementById('world').value) {
+        alert('You need to upload the world folder!')
+    }
+    else if(offertype.includes("world") && !document.getElementById('packicon').value && (document.getElementById('resourcePack').value || document.getElementById('behaviorPack').value)) {
+        alert('You need to upload the pack icon!')
+    }
+    else if(offertype.includes("world") && !document.getElementById('screenshotsHD').value) {
+        alert('You need to upload the HD screenshots!')
+    }
+    else if(offertype.includes("world") && !document.getElementById('panorama').value) {
+        alert('You need to upload the panorama]!')
+    }
     else if(document.getElementById('keyart').style.color != validFileColor) {
         alert('You need to upload a Key Art image!')
     }
@@ -601,6 +624,12 @@ packageButton.onclick = async function () {
         if(offertype == "skins") {
             try { 
                 await packageSkinpack(zip)
+                download = true
+            } catch(e) {alert(e)}
+        }
+        else if(offertype == "world") {
+            try {
+                await packageWorld(zip)
                 download = true
             } catch(e) {alert(e)}
         }
@@ -626,6 +655,7 @@ packageButton.onclick = async function () {
                 // Finish packaging
                 packageButton.value = 'PACKAGE'
                 packageButton.disabled = false
+                console.log('Downloaded.')
             });
         }
     }
@@ -654,8 +684,6 @@ async function packageSkinpack(zip) {
     // Create directories
     zip.folder("Marketing Art")
     zip.folder("Store Art")
-    zip.folder("Content")
-    zip.folder("Content/skin_pack")
     zip.folder("Content/skin_pack/texts")
 
 
@@ -678,57 +706,57 @@ async function packageSkinpack(zip) {
     skinsFileContents = skinsFileContents.replaceAll("$skinpack", skinpackID)
     skinEntryTemplate = await(await fetch(templatesLoc+'skinpacks/skin_entry.txt')).text()
 
-        // Iterate through all skins
-        skins = ''
-        skinsLang = ''
-        for(let i = 3; i < skinsFileList.length; i++) {
-            
-            // Get skin info from input fields
-            skinGeometry = skinsTypeList[i].value
-            skinName = skinsNameList[i].value
-            skinID = skinName.replace(/[^0-9a-zA-Z]+/g,'')
-            skinFilename = skinsFileList[i].value
-            skinFile = skinFiles.find(element => element.name === skinFilename)
+    // Iterate through all skins
+    skins = ''
+    skinsLang = ''
+    for(let i = 3; i < skinsFileList.length; i++) {
+        
+        // Get skin info from input fields
+        skinGeometry = skinsTypeList[i].value
+        skinName = skinsNameList[i].value
+        skinID = skinName.replace(/[^0-9a-zA-Z]+/g,'')
+        skinFilename = skinsFileList[i].value
+        skinFile = skinFiles.find(element => element.name === skinFilename)
 
-            // Get pay type by iterating through each checkbox by ID (.value) because the order is jumbled for some reason
-            payType = 'paid'
-            for(let c = 3; c < freeCheckboxesList.length; c++) {
-                if(freeCheckboxesList[c].value == i-3) {
-                    if(freeCheckboxesList[c].checked) {
-                        payType = 'free'
-                    }
-                    break
+        // Get pay type by iterating through each checkbox by ID (.value) because the order is jumbled for some reason
+        payType = 'paid'
+        for(let c = 3; c < freeCheckboxesList.length; c++) {
+            if(freeCheckboxesList[c].value == i-3) {
+                if(freeCheckboxesList[c].checked) {
+                    payType = 'free'
                 }
-            }
-
-            // Set new file name & geometry
-            if(skinGeometry.includes('Slim')) {
-                skinFilename = skinID+'_a.png'
-                skinGeometry = 'customSlim'
-            } 
-            else if(skinGeometry.includes('Classic')) { 
-                skinFilename = skinID+'_s.png'
-                skinGeometry = 'custom'
-            }
-
-            // Don't package if invalid
-            if(!skinGeometry.includes('INVALID')) {
-
-                // Create entries for skins.json & en_US.json
-                skins += skinEntryTemplate.replace("$skinFile", skinFilename).replace("$skinGeometry", skinGeometry).replace("$skin", skinID).replace("$payType", payType)
-                skinsLang += 'skin.'+skinpackID+'.'+skinID+'='+skinName
-                if(i + 1 < skinsFileList.length) { skins += ',\n'; skinsLang += '\n' }
-
-
-                // Create skin texture files
-                zip.file('Content/skin_pack/'+skinFilename, skinFile, {binary: true})
+                break
             }
         }
-        
-        // Add all skin entries to skins.json & en_US.json
-        skinsFileContents = skinsFileContents.replace("$skins", skins)
-        enUSFileContents = enUSFileContents.replace("$skinsLang", skinsLang)
+
+        // Set new file name & geometry
+        if(skinGeometry.includes('Slim')) {
+            skinFilename = skinID+'_a.png'
+            skinGeometry = 'customSlim'
+        } 
+        else if(skinGeometry.includes('Classic')) { 
+            skinFilename = skinID+'_s.png'
+            skinGeometry = 'custom'
+        }
+
+        // Don't package if invalid
+        if(!skinGeometry.includes('INVALID')) {
+
+            // Create entries for skins.json & en_US.json
+            skins += skinEntryTemplate.replace("$skinFile", skinFilename).replace("$skinGeometry", skinGeometry).replace("$skin", skinID).replace("$payType", payType)
+            skinsLang += 'skin.'+skinpackID+'.'+skinID+'='+skinName
+            if(i + 1 < skinsFileList.length) { skins += ',\n'; skinsLang += '\n' }
+
+
+            // Create skin texture files
+            zip.file('Content/skin_pack/'+skinFilename, skinFile, {binary: true})
+        }
+    }
     
+    // Add all skin entries to skins.json & en_US.json
+    skinsFileContents = skinsFileContents.replace("$skins", skins)
+    enUSFileContents = enUSFileContents.replace("$skinsLang", skinsLang)
+
 
     // Create 800x450 key art image for thumbnail
     thumbnailFile = await(createThumbnail(keyartFile))
@@ -751,6 +779,146 @@ async function packageSkinpack(zip) {
     zip.file("Content/skin_pack/texts/languages.json", languagesFileContents)
 }
 
+async function packageWorld(zip) {
+
+    // Get world info from input fields
+    worldName = document.getElementById('name').value
+    acronym = document.getElementById('acronym').value
+    worldID = worldName.replace(/[^0-9a-zA-Z]+/g,'')
+    version = document.getElementById('version').value.replaceAll('.',', ')
+    mcversion = document.getElementById('mcversion').value.replaceAll('.',', ')+', 0'
+    keyartFile = document.getElementById('keyart').files[0]
+    partnerartFile = document.getElementById('partnerart').files[0]
+    packiconFile = document.getElementById('packicon').files[0]
+    worldFile = document.getElementById('world').files[0]
+    bpFile = document.getElementById('behaviorPack').files[0]
+    rpFile = document.getElementById('resourcePack').files[0]
+
+    // Get UUIDs (generate random UUID1 if none is given)
+    uuid1 = document.getElementById('manifestuuid').value
+    if(!uuid1) { uuid1 = uuid() }
+    uuid2 = uuid()
+
+    // Unzip world file and create Content folder
+    // https://stackoverflow.com/questions/39322964/extracting-zipped-files-using-jszip-in-javascript
+    await zip.folder("Content/world_template").loadAsync(worldFile).then(function (zipfile) {
+        Object.keys(zipfile.files).forEach(function (filename) { 
+            zipfile.files[filename].async('string') 
+        })
+    })
+
+    // Clean world file
+    worldpath = 'Content/world_template/'
+    zip.remove(worldpath+'manifest.json')
+    zip.remove(worldpath+'level.dat_old')
+    zip.remove(worldpath+'world_behavior_pack_history.json')
+    zip.remove(worldpath+'world_resource_pack_history.json')
+    zip.remove(worldpath+'world_behavior_packs.json')
+    zip.remove(worldpath+'world_resource_packs.json')
+    zip.remove(worldpath+'world_icon.jpeg')
+    zip.remove(worldpath+'levelname.txt')
+    zip.remove(worldpath+'resource_packs')
+    zip.remove(worldpath+'behavior_packs')
+
+    // Create resourcepack
+    if(rpFile) {
+        await zip.folder(worldpath+'resource_packs/RP_'+acronym).loadAsync(rpFile).then(function (zipfile) {
+            Object.keys(zipfile.files).forEach(function (filename) { 
+                zipfile.files[filename].async('string') 
+            })
+        })
+
+        // Make RP UUID
+        rpUUID = uuid()
+        otherUUID = uuid()
+
+        // Create world_resource_packs.json
+        worldRPContents = await(await fetch(templatesLoc+'worlds/world_packs.txt')).text()
+        worldRPContents = worldRPContents.replace("$uuid", rpUUID)
+        zip.file(worldpath+'world_resource_packs.json', worldRPContents)
+
+        // Create resourcepack manifest.json
+        rpManifestFileContents = await(await fetch(templatesLoc+'worlds/rp_manifest.txt')).text()
+        rpManifestFileContents = rpManifestFileContents.replace("$uuid1", rpUUID)
+        rpManifestFileContents = rpManifestFileContents.replace("$uuid2", otherUUID)
+        rpManifestFileContents = rpManifestFileContents.replaceAll("$version", version)
+        rpManifestFileContents = rpManifestFileContents.replaceAll("$mcversion", mcversion)
+        zip.file(worldpath+'resource_packs/RP_'+acronym+'/manifest.json', rpManifestFileContents)
+
+        // Create pack icon
+        zip.file(worldpath+'resource_packs/RP_'+acronym+'/pack_icon.png', packiconFile, {binary: true})
+    }
+
+    // Create behaviorpack
+    if(bpFile) {
+        await zip.folder(worldpath+'behavior_packs/BP_'+acronym).loadAsync(bpFile).then(function (zipfile) {
+            Object.keys(zipfile.files).forEach(function (filename) { 
+                zipfile.files[filename].async('string') 
+            })
+        })
+
+        // Make BP UUID
+        bpUUID = uuid()
+        otherUUID = uuid()
+
+        // Create world_behavior_packs.json
+        worldBPContents = await(await fetch(templatesLoc+'worlds/world_packs.txt')).text()
+        worldBPContents = worldBPContents.replace("$uuid", bpUUID)
+        zip.file(worldpath+'world_behavior_packs.json', worldBPContents)
+
+        // Create behaviorpack manifest.json
+        bpManifestFileContents = await(await fetch(templatesLoc+'worlds/bp_manifest.txt')).text()
+        bpManifestFileContents = bpManifestFileContents.replace("$uuid1", bpUUID)
+        bpManifestFileContents = bpManifestFileContents.replace("$uuid2", otherUUID)
+        bpManifestFileContents = bpManifestFileContents.replaceAll("$version", version)
+        bpManifestFileContents = bpManifestFileContents.replaceAll("$mcversion", mcversion)
+        zip.file(worldpath+'behavior_packs/BP_'+acronym+'/manifest.json', bpManifestFileContents)
+
+        // Create pack icon
+        zip.file(worldpath+'behavior_packs/BP_'+acronym+'/pack_icon.png', packiconFile, {binary: true})
+    }
+
+
+    // Create other directories
+    zip.folder("Marketing Art")
+    zip.folder("Store Art")
+    zip.folder("Content/world_template/texts")
+
+    // Create en_US.lang contents
+    enUSFileContents = await(await fetch(templatesLoc+'worlds/en_US.txt')).text()
+    enUSFileContents = enUSFileContents.replace("$worldName", worldName)
+
+    // Create languages.json contents
+    languagesFileContents = await(await fetch(templatesLoc+'languages.txt')).text()
+
+    // Create manifest.json contents
+    manifestFileContents = await(await fetch(templatesLoc+'worlds/manifest.txt')).text()
+    manifestFileContents = manifestFileContents.replace("$uuid1", uuid1)
+    manifestFileContents = manifestFileContents.replace("$uuid2", uuid2)
+    manifestFileContents = manifestFileContents.replaceAll("$version", version)
+
+    // Create 800x450 key art image for thumbnail and world icon
+    thumbnailFile = await(createThumbnail(keyartFile))
+    worldIconFile = await(createThumbnail(keyartFile))
+
+    // Create marketing/store art files and world icon
+    zip.file('Marketing Art/'+worldID+'_MarketingKeyArt.jpg', keyartFile, {binary: true})
+    zip.file('Marketing Art/'+worldID+'_PartnerArt.png', partnerartFile, {binary: true})
+    zip.file('Store Art/'+worldID+'_Thumbnail_0.jpg', thumbnailFile, {binary: true})
+    zip.file(worldpath+'world_icon.jpeg', worldIconFile, {binary: true})
+
+
+    // Debug print files
+    console.log('\n\nmanifest.json:\n'+manifestFileContents)
+    console.log('\n\nen_US.lang:\n'+enUSFileContents)
+    console.log('\n\nlanguages.json:\n'+languagesFileContents)
+
+    // Create level name, lang, and manifest files
+    zip.file("Content/world_template/levelname.txt", worldName)
+    zip.file("Content/world_template/manifest.json", manifestFileContents)
+    zip.file("Content/world_template/texts/en_US.lang", enUSFileContents)
+    zip.file("Content/world_template/texts/languages.json", languagesFileContents)
+}
 
 // Create thumbnail by resizing keyart (input keyartFile, return file)
 const createThumbnail = (keyartFile) => new Promise((resolve) => {
@@ -797,3 +965,9 @@ function createSkinPreview(skinImg) {
     }
     return canvas.toDataURL()
 }
+
+// Debug world packager
+showOfferSpecificFields("world")
+acronymInput.value = 'PRUE'
+mcversionInput.value = '1.19'
+nameInput.value = 'Parkour Universe'

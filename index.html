@@ -124,8 +124,8 @@
                 style="color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px">Offer
                 Type</label><br>
             <select id="offertype" style="height: 32px; font-size: small">
-                <option value="skins">Skins</option>
                 <option value="world">World</option>
+                <option value="skins">Skins</option>
                 <option value="world+skins">World + Skins</option>
             </select><br>
 
@@ -136,28 +136,28 @@
             <label for="name"
                 style="color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px">Offer
                 Name</label><br>
-            <span><input type="text" id="name" placeholder="Lucky Sus Teens" maxlength=30 style="width:120.672px;"><br></span>
+            <span><input type="text" id="name" placeholder="Anime Sus Teens" maxlength=30 style="width:156px;"><br></span>
 
             <!-- VERSION -->
             <br>
             <label for="version"
                 style="color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px">
                 Version</label><br>
-            <span><input type="text" id="version" placeholder="1.0.0" value="1.0.0" maxlength=7 style="width:35.5938px"><br></span>
+            <span><input type="text" id="version" placeholder="1.0.0" value="1.0.0" maxlength=5 style="width:36px"><br></span>
 
             <!-- MC VERSION -->
             <br>
             <label for="mcversion" id="mcversionLabel"
                 style="display:none; color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px">
                 MC Version</label><br>
-            <span><input type="text" id="mcversion" placeholder="1.17" maxlength=4 style="display:none; width:31.1406px"><br></span>
+            <span><input type="text" id="mcversion" placeholder="1.19" maxlength=4 style="display:none; width:32px"><br></span>
 
             <!-- ACRONYM -->
             <br>
             <label for="acronym" id="acronymLabel"
                 style="display:none; color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px">
                 Acronym</label><br>
-            <span><input type="text" maxlength=4 id="acronym" placeholder="LST" style="display:none; width:29.3438px"><br></span>
+            <span><input type="text" maxlength=4 id="acronym" placeholder="LST" style="display:none; width:40px"><br></span>
 
             <!-- MANIFEST UUID -->
             <br>
@@ -165,30 +165,6 @@
                 style="display:none; color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px">
                 Manifest UUID (from previous version)</label><br>
             <span><input style="font-size: small; display:none; width:246.5px" , type="text" id="manifestuuid" placeholder="7cad534a-c572-4a38-8497-0ac6ead47e53" maxlength=40><br></span>
-
-            <!-- WORLD -->
-            <br>
-            <label for="world" id="worldLabel"
-                style="color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px; display:none">World
-                Folder</label><br>
-            <input onchange="this.style.color='skyblue'" type="file" id="world"
-                style="color:rgb(255, 133, 133); position:relative; left:30px; display:none">
-
-            <!-- BEHAVIOR PACK -->
-            <br><br>
-            <label for="behaviorPack" id="behaviorPackLabel"
-                style="color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px; display:none">Resource
-                Pack</label><br>
-            <input onchange="this.style.color='skyblue'" type="file" id="behaviorPack"
-                style="color:rgb(255, 133, 133); position:relative; left:30px; display:none">
-
-            <!-- RESOURCE PACK -->
-            <br><br>
-            <label for="resourcePack" id="resourcePackLabel"
-                style="color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px; display:none">Behavior
-                Pack</label><br>
-            <input onchange="this.style.color='skyblue'" type="file" id="resourcePack"
-                style="color:rgb(255, 133, 133); position:relative; left:30px; display:none">
         </div>
 
 
@@ -271,14 +247,57 @@
                 <img id="partnerartImage" style="display:none">
             </div>
 
-            <!-- HD Screenshots -->
+
+            <!-- WORLD -->
             <br>
-            <label for="screenshotsHD" id="screenshotsHDLabel"
-                style="color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px; display:none">HD Screenshots Folder (1920x1080 .jpg)</label><br>
-            <input type="file" id="screenshotsHD" webkitdirectory mozdirectory
+            <label for="world" id="worldLabel"
+                style="color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px; display:none">World
+                File (.mcworld)</label><br>
+            <input type="file" id="world"
                 style="color:rgb(255, 133, 133); position:relative; left:30px; display:none">
-            <div class="row" id="screenshotImagesHD" style="position:relative;left:30px">
-                <img id="screenshotImageHD" style="width:128px; height:72px; display:none">
+
+            <!-- BEHAVIOR PACK -->
+            <br><br>
+            <label for="behaviorPack" id="behaviorPackLabel"
+                style="color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px; display:none">Behavior
+                Pack (.zip)</label><br>
+            <input onchange="this.style.color='skyblue'" type="file" id="behaviorPack"
+                style="color:rgb(255, 133, 133); position:relative; left:30px; display:none">
+
+            <!-- RESOURCE PACK -->
+            <br><br>
+            <label for="resourcePack" id="resourcePackLabel"
+                style="color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px; display:none">Resource
+                Pack (.zip)</label><br>
+            <input onchange="this.style.color='skyblue'" type="file" id="resourcePack"
+                style="color:rgb(255, 133, 133); position:relative; left:30px; display:none">
+
+
+            <!-- PACKAGE BUTTON -->
+            <div><input type="submit" value="PACKAGE" id="package" style="position:absolute; bottom:5%; left:5%; width:200px"></div>
+        </div>
+
+
+
+        <div class="column" id="column4" style="width: 20%; display:none">
+            <!-- World Icon -->
+            <!-- <br> -->
+            <!-- <label for="worldicon" id="worldiconLabel"
+                style="color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px; display:inline">World Icon (800x450 .jpg)</label><br>
+            <input type="file" id="worldicon"
+                style="color:rgb(255, 133, 133); position:relative; left:30px; display:inline">
+            <div id="worldiconImages" style="position:relative; left:30px">
+                <img id="worldiconImage" style="display:none">
+            </div> -->
+
+            <!-- Pack Icon -->
+            <br>
+            <label for="packicon" id="packiconLabel"
+                style="color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px; display:inline">Pack Icon (256x256 .png)</label><br>
+            <input type="file" id="packicon"
+                style="color:rgb(255, 133, 133); position:relative; left:30px; display:inline">
+            <div id="packiconImages" style="position:relative; left:30px">
+                <img id="packiconImage" style="display:none">
             </div>
 
             <!-- Panorama -->
@@ -291,42 +310,27 @@
                 <img id="panoramaImage" style="display:none">
             </div>
 
-            <!-- PACKAGE BUTTON -->
-            <div><input type="submit" value="PACKAGE" id="package" style="position:absolute; bottom:5%; left:5%; width:200px"></div>
-        </div>
-
-
-
-        <div class="column" id="column4" style="width: 20%; display:none">
-            <!-- World Icon -->
+            <!-- HD Screenshots -->
             <br>
-            <label for="worldicon" id="worldiconLabel"
-                style="color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px; display:inline">World Icon (800x450 .jpg)</label><br>
-            <input type="file" id="worldicon"
-                style="color:rgb(255, 133, 133); position:relative; left:30px; display:inline">
-            <div id="worldiconImages" style="position:relative; left:30px">
-                <img id="worldiconImage" style="display:none">
-            </div>
-
-            <!-- Pack Icon -->
             <br>
-            <label for="packicon" id="packiconLabel"
-                style="color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px; display:inline">Pack Icon (256x256 .jpg)</label><br>
-            <input type="file" id="packicon"
-                style="color:rgb(255, 133, 133); position:relative; left:30px; display:inline">
-            <div id="packiconImages" style="position:relative; left:30px">
-                <img id="packiconImage" style="display:none">
+            <label for="screenshotsHD" id="screenshotsHDLabel"
+                style="color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px; display:none">HD Screenshots Folder (1920x1080 .jpg)</label><br>
+            <input type="file" id="screenshotsHD" webkitdirectory mozdirectory
+                style="color:rgb(255, 133, 133); position:relative; left:30px; display:none">
+            <div class="row" id="screenshotImagesHD" style="position:relative;left:30px">
+                <img id="screenshotImageHD" style="width:128px; height:72px; display:none">
             </div>
 
             <!-- Screenshots -->
-            <br>
+            <!-- <br>
             <label for="screenshots" id="screenshotsLabel"
                 style="color: white; font-size: medium; font-family: Tahoma; position:relative; left:30px">Screenshots Folder (800x450 .jpg)</label><br>
             <input type="file" id="screenshots" webkitdirectory mozdirectory
                 style="color:rgb(255, 133, 133); position:relative; left:30px;">
             <div class="row" id="screenshotImages" style="position:relative;left:30px">
                 <img id="screenshotImage" style="width:128px; height:72px; display:none">
-            </div>
+            </div> -->
+            
         </div>
     </div>
 
