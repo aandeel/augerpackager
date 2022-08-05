@@ -111,39 +111,34 @@ partnerart.onchange = async () => {
     processAssetUpload(partnerart, "Partner Art", 1920, 1080, "png")
 }
 
-// Handle worldicon when uploaded
-// worldicon.onchange = async () => {
-//     processAssetUpload(worldicon, "World Icon", 800, 450, "jpg")
-// }
-
 // Handle packicon when uploaded
 packicon.onchange = async () => {
-    processAssetUpload(packicon, "Pack Icon", 256, 256, "png")
+    processAssetUpload(packicon, "Pack Icon", 256, 256, "jpg")
 }
 
-// Handle HD screenshots when uploaded
-screenshotsHD.onchange = async () => {
+// Handle screenshots when uploaded
+screenshots.onchange = async () => {
 
     // Delete each screenshot
-    screenshotImages = document.getElementById("screenshotImagesHD").children
+    screenshotImages = document.getElementById("screenshotImages").children
     for (let i = screenshotImages.length-1; i > 0; i--) {
         screenshotImages[i].remove();
     }
 
-    if(screenshotsHD.value) {
+    if(screenshots.value) {
 
         // Set upload button text color to blue
-        screenshotsHD.style.color = validFileColor
+        screenshots.style.color = validFileColor
 
 
         var breakLoop;
-        for (let i = 0; i < screenshotsHD.files.length; i++) {
+        for (let i = 0; i < screenshots.files.length; i++) {
             
-            const screenshot = screenshotsHD.files[i]
+            const screenshot = screenshots.files[i]
 
             // Check file type
             if(!screenshot.name.includes(".jpg")) {
-                invalidUpload(screenshotsHD, screenshot.name+" is an invalid file type. HD Screenshots should be .jpg")
+                invalidUpload(screenshots, screenshot.name+" is an invalid file type. Screenshots should be .jpg")
                 breakLoop = true;
             }
 
@@ -157,11 +152,11 @@ screenshotsHD.onchange = async () => {
 
                     // Check dimensions of screenshot
                     if(image.width != 1920 || image.height != 1080) {
-                        invalidUpload(screenshotsHD, screenshotsHD.files[i].name+" must be 1920x1080 pixels in size, but is "+image.width+"x"+image.height+".")
+                        invalidUpload(screenshots, screenshots.files[i].name+" must be 1920x1080 pixels in size, but is "+image.width+"x"+image.height+".")
                         
                         breakLoop = true; // break statement not working, so boolean flag to break loop
 
-                        // Delete all HD screenshots & end loop if invalid image detected
+                        // Delete all screenshots & end loop if invalid image detected
                         for (let i = screenshotImages.length-1; i > 0; i--) {
                             screenshotImages[i].remove();
                         }
@@ -169,10 +164,10 @@ screenshotsHD.onchange = async () => {
                     else if(!breakLoop) {
 
                         // Display image
-                        var screenshotImage = document.getElementById("screenshotImageHD");
+                        var screenshotImage = document.getElementById("screenshotImage");
                         var newScreenshotImage = screenshotImage.cloneNode(true)
-                        newScreenshotImage.id = "screenshotHD"+i
-                        document.getElementById("screenshotImagesHD").appendChild(newScreenshotImage);
+                        newScreenshotImage.id = "screenshot"+i
+                        document.getElementById("screenshotImages").appendChild(newScreenshotImage);
                         newScreenshotImage.style.display = "inline"
                         newScreenshotImage.src = URL.createObjectURL(screenshot)
                     }
@@ -185,83 +180,9 @@ screenshotsHD.onchange = async () => {
     } 
     else {
         // Set upload button text color to red if file removed
-        screenshotsHD.style.color = invalidFileColor
+        screenshots.style.color = invalidFileColor
     }
 }
-
-// Handle screenshots when uploaded
-// screenshots.onchange = async () => {
-
-//     // Delete each screenshot
-//     screenshotImages = document.getElementById("screenshotImages").children
-//     for (let i = screenshotImages.length-1; i > 0; i--) {
-//         screenshotImages[i].remove();
-//     }
-
-//     if(screenshots.value) {
-//         if(screenshots.files.length == maxScreenshotCount) { // Check for exactly 5 screenshots
-
-//             // Set upload button text color to blue
-//             screenshots.style.color = validFileColor
-
-
-//             var breakLoop;
-//             for (let i = 0; i < maxScreenshotCount; i++) {
-                
-//                 const screenshot = screenshots.files[i]
-            
-//                 // Check file type
-//                 if(!screenshot.name.includes(".jpg")) {
-//                     invalidUpload(screenshots, screenshot.name+" is an invalid file type. Screenshots should be .jpg")
-//                     breakLoop = true;
-//                 }
-
-//                 // Create image using screenshot texture to check size and format //
-//                 /* Make image element with screenshot */
-//                 const image = new Image()
-
-//                 /* Make canvas element */
-//                 image.onload = () => {
-//                     setTimeout(() => {
-
-//                         // Check dimensions of screenshot
-//                         if(image.width != 800 || image.height != 450) {
-//                             invalidUpload(screenshots, screenshots.files[i].name+" must be 800x450 pixels in size, but is "+image.width+"x"+image.height+".")
-                            
-//                             breakLoop = true; // break statement not working, so boolean flag to break loop
-
-//                             // Delete all screenshots & end loop if invalid image detected
-//                             for (let i = screenshotImages.length-1; i > 0; i--) {
-//                                 screenshotImages[i].remove();
-//                             }
-//                         }
-//                         else if(!breakLoop) {
-
-//                             // Display image
-//                             var screenshotImage = document.getElementById("screenshotImage");
-//                             var newScreenshotImage = screenshotImage.cloneNode(true)
-//                             newScreenshotImage.id = "screenshot"+i
-//                             document.getElementById("screenshotImages").appendChild(newScreenshotImage);
-//                             newScreenshotImage.style.display = "inline"
-//                             newScreenshotImage.src = URL.createObjectURL(screenshot)
-//                         }
-                 
-                    
-//                     }, 200)
-//                 }
-//                 image.src = URL.createObjectURL(screenshot)
-//             }
-//         } 
-//         else { // Not exactly 5 screenshots
-//             invalidUpload(screenshots, "There must be exactly 5 screenshots. You uploaded "+screenshots.files.length+".")
-//         }
-//     } 
-
-//     else {
-//         // Set upload button text color to red if file removed
-//         screenshots.style.color = invalidFileColor
-//     }
-// }
 
 world.onchange = async () => {
     world.style.color = validFileColor
@@ -480,9 +401,9 @@ const showOfferSpecificFields = function (offertype) {
     behaviorPackLabel = document.getElementById('behaviorPackLabel')
     skinsColumn = document.getElementById("column2")
     worldAssetsColumn = document.getElementById("column4")
-    screenshotsHDLabel = document.getElementById("screenshotsHDLabel")
-    screenshotsHDInput = document.getElementById("screenshotsHD")
-    screenshotsHDImages = document.getElementById("screenshotImagesHD")
+    screenshotLabel = document.getElementById("screenshotLabel")
+    screenshotInput = document.getElementById("screenshots")
+    screenshotImages = document.getElementById("screenshotImages")
     panoramaLabel = document.getElementById("panoramaLabel")
     panoramaInput = document.getElementById("panorama")
     panoramaImages = document.getElementById("panoramaImages")
@@ -497,9 +418,9 @@ const showOfferSpecificFields = function (offertype) {
     behaviorPackLabel.style.display = 'none'
     skinsColumn.style.display = 'none'
     worldAssetsColumn.style.display = 'none'
-    screenshotsHDLabel.style.display = 'none'
-    screenshotsHDInput.style.display = 'none'
-    screenshotsHDImages.style.display = 'none'
+    screenshotLabel.style.display = 'none'
+    screenshotInput.style.display = 'none'
+    screenshotImages.style.display = 'none'
     panoramaLabel.style.display = 'none'
     panoramaInput.style.display = 'none'
     panoramaImages.style.display = 'none'
@@ -524,9 +445,9 @@ const showOfferSpecificFields = function (offertype) {
         behaviorPackInput.style.display = 'inline'
         behaviorPackLabel.style.display = 'inline'
         worldAssetsColumn.style.display = 'block'
-        screenshotsHDLabel.style.display = 'inline'
-        screenshotsHDInput.style.display = 'inline'
-        screenshotsHDImages.style.display = 'inline'
+        screenshotLabel.style.display = 'inline'
+        screenshotInput.style.display = 'inline'
+        screenshotImages.style.display = 'inline'
         panoramaLabel.style.display = 'inline'
         panoramaInput.style.display = 'inline'
         panoramaImages.style.display = 'inline'
@@ -591,14 +512,20 @@ packageButton.onclick = async function () {
     else if(offertype.includes("skins") && !document.getElementById('skins').value) {
         alert('You need to upload a folder of Skins!')
     }
+    else if(offertype.includes("world") && !document.getElementById('mcversion').value) {
+        alert('You need to enter a Minecraft Version!')
+    }
+    else if(offertype.includes("world") && !document.getElementById('acronym').value) {
+        alert('You need to enter an acronym!')
+    }
     else if(offertype.includes("world") && !document.getElementById('world').value) {
         alert('You need to upload the world folder!')
     }
     else if(offertype.includes("world") && !document.getElementById('packicon').value && (document.getElementById('resourcePack').value || document.getElementById('behaviorPack').value)) {
         alert('You need to upload the pack icon!')
     }
-    else if(offertype.includes("world") && !document.getElementById('screenshotsHD').value) {
-        alert('You need to upload the HD screenshots!')
+    else if(offertype.includes("world") && !document.getElementById('screenshots').value) {
+        alert('You need to upload the screenshots!')
     }
     else if(offertype.includes("world") && !document.getElementById('panorama').value) {
         alert('You need to upload the panorama]!')
@@ -759,7 +686,7 @@ async function packageSkinpack(zip) {
 
 
     // Create 800x450 key art image for thumbnail
-    thumbnailFile = await(createThumbnail(keyartFile))
+    thumbnailFile = await(convertImage(keyartFile, 800, 450, 'jpeg'))
 
     // Create marketing/store art files
     zip.file('Marketing Art/'+skinpackID+'_MarketingKeyArt.jpg', keyartFile, {binary: true})
@@ -787,12 +714,15 @@ async function packageWorld(zip) {
     worldID = worldName.replace(/[^0-9a-zA-Z]+/g,'')
     version = document.getElementById('version').value.replaceAll('.',', ')
     mcversion = document.getElementById('mcversion').value.replaceAll('.',', ')+', 0'
+    panoramaFile = document.getElementById('panorama').files[0]
+    screenshotFiles = document.getElementById('screenshots').files
     keyartFile = document.getElementById('keyart').files[0]
     partnerartFile = document.getElementById('partnerart').files[0]
     packiconFile = document.getElementById('packicon').files[0]
     worldFile = document.getElementById('world').files[0]
     bpFile = document.getElementById('behaviorPack').files[0]
     rpFile = document.getElementById('resourcePack').files[0]
+    packiconFilePNG = await(convertImage(packiconFile, 256, 256, 'png'))
 
     // Get UUIDs (generate random UUID1 if none is given)
     uuid1 = document.getElementById('manifestuuid').value
@@ -844,9 +774,10 @@ async function packageWorld(zip) {
         rpManifestFileContents = rpManifestFileContents.replaceAll("$version", version)
         rpManifestFileContents = rpManifestFileContents.replaceAll("$mcversion", mcversion)
         zip.file(worldpath+'resource_packs/RP_'+acronym+'/manifest.json', rpManifestFileContents)
+        console.log('\n\nworld_resource_packs.json:\n'+rpManifestFileContents)
 
         // Create pack icon
-        zip.file(worldpath+'resource_packs/RP_'+acronym+'/pack_icon.png', packiconFile, {binary: true})
+        zip.file(worldpath+'resource_packs/RP_'+acronym+'/pack_icon.png', packiconFilePNG, {binary: true})
     }
 
     // Create behaviorpack
@@ -873,11 +804,11 @@ async function packageWorld(zip) {
         bpManifestFileContents = bpManifestFileContents.replaceAll("$version", version)
         bpManifestFileContents = bpManifestFileContents.replaceAll("$mcversion", mcversion)
         zip.file(worldpath+'behavior_packs/BP_'+acronym+'/manifest.json', bpManifestFileContents)
+        console.log('\n\nworld_behavior_packs.json:\n'+bpManifestFileContents)
 
         // Create pack icon
-        zip.file(worldpath+'behavior_packs/BP_'+acronym+'/pack_icon.png', packiconFile, {binary: true})
+        zip.file(worldpath+'behavior_packs/BP_'+acronym+'/pack_icon.png', packiconFilePNG, {binary: true})
     }
-
 
     // Create other directories
     zip.folder("Marketing Art")
@@ -898,14 +829,25 @@ async function packageWorld(zip) {
     manifestFileContents = manifestFileContents.replaceAll("$version", version)
 
     // Create 800x450 key art image for thumbnail and world icon
-    thumbnailFile = await(createThumbnail(keyartFile))
-    worldIconFile = await(createThumbnail(keyartFile))
+    thumbnailFile = await(convertImage(keyartFile, 800, 450, 'jpeg'))
 
     // Create marketing/store art files and world icon
     zip.file('Marketing Art/'+worldID+'_MarketingKeyArt.jpg', keyartFile, {binary: true})
     zip.file('Marketing Art/'+worldID+'_PartnerArt.png', partnerartFile, {binary: true})
     zip.file('Store Art/'+worldID+'_Thumbnail_0.jpg', thumbnailFile, {binary: true})
-    zip.file(worldpath+'world_icon.jpeg', worldIconFile, {binary: true})
+    zip.file('Store Art/'+worldID+'_panorama_0.jpg', panoramaFile, {binary: true})
+    zip.file('Store Art/'+worldID+'_packicon_0.jpg', packiconFile, {binary: true})
+    zip.file(worldpath+'world_icon.jpeg', thumbnailFile, {binary: true})
+
+    // Create screenshots
+    for(let i = 0; i < screenshotFiles.length; i++) {
+        // Create  screenshot (Marketing Art)
+        zip.file('Marketing Art/'+worldID+'_MarketingScreenshot_'+i+'.jpg', screenshotFiles[i], {binary: true})
+
+        // Create SD screenshot (Store Art)
+        screenshotSDFile = await(convertImage(screenshotFiles[i], 800, 450, 'jpeg'))
+        zip.file('Store Art/'+worldID+'_screenshot_'+i+'.jpg', screenshotSDFile, {binary: true})
+    }
 
 
     // Debug print files
@@ -920,27 +862,26 @@ async function packageWorld(zip) {
     zip.file("Content/world_template/texts/languages.json", languagesFileContents)
 }
 
-// Create thumbnail by resizing keyart (input keyartFile, return file)
-const createThumbnail = (keyartFile) => new Promise((resolve) => {
-    const keyartImg = new Image()  
+// Create thumbnail by resizing keyart (input 1920x1080 file, return 800x450 file)
+const convertImage = (file, width, height, format) => new Promise((resolve) => {
+    const fileImg = new Image()  
 
-    keyartImg.onload = () => {
+    fileImg.onload = () => {
         setTimeout(() => {
 
             // Create canvas
             var canvas = document.createElement('canvas');
-            canvas.width = 800
-            canvas.height = 450
-            canvas.getContext('2d').drawImage(keyartImg, 0, 0, 800, 450)
+            canvas.width = width
+            canvas.height = height
+            canvas.getContext('2d').drawImage(fileImg, 0, 0, width, height)
 
             // Return canvas converted to file
-            canvas.toBlob(blob => resolve(blob), 'image/jpeg')
+            canvas.toBlob(blob => resolve(blob), 'image/'+format)
             
         }, 100)
     }
-    keyartImg.src = URL.createObjectURL(keyartFile)
+    fileImg.src = URL.createObjectURL(file)
 })
-
 
 // Create cropped and resized skin preview (input skinImg, return src)
 function createSkinPreview(skinImg) {
@@ -967,7 +908,7 @@ function createSkinPreview(skinImg) {
 }
 
 // Debug world packager
-showOfferSpecificFields("world")
-acronymInput.value = 'PRUE'
-mcversionInput.value = '1.19'
-nameInput.value = 'Parkour Universe'
+// showOfferSpecificFields("world")
+// acronymInput.value = 'PRUE'
+// mcversionInput.value = '1.19'
+// nameInput.value = 'Parkour Universe'
