@@ -4,13 +4,64 @@
     https://www.yeggs.org/
 */
 
-
 const maxScreenshotCount = 5
 const templatesLoc = 'https://raw.githubusercontent.com/Chopper2112/augerpackager/main/templates/'
 const validFileColor = 'skyblue'
 const invalidFileColor = 'rgb(255, 133, 133)'
 
 
+
+
+// Key art, partner art, pack icon, and world icon upload processing
+async function processAssetUpload(element, assetName, assetWidth, assetHeight, assetFileType) {
+    asset = assetName.replace(" ","").toLowerCase()
+
+    // Get image element and reset it
+    try {document.getElementById(asset+"ImageDisplay").remove()} catch {}
+    var image = document.getElementById(asset+"Image");
+    var imageDisplay = image.cloneNode(true)
+    imageDisplay.id = asset+"ImageDisplay"
+    imageDisplay.style.display = "none"
+
+    if(element.value) {
+
+        // Check if file is correct type and convert if not
+        if(!element.files[0].name.includes("."+assetFileType)) {
+            element.files[0] = await(convertImage(element.files[0], assetWidth, assetHeight, assetFileType))
+            alert('Automatically converted '+assetName+' to .'+assetFileType+' file type.')
+            // invalidUpload(element, assetName+" must be a ."+assetFileType+" file type.")
+        }
+
+        // Create image
+        element.style.color = validFileColor
+        image.src = URL.createObjectURL(element.files[0]);
+        imageDisplay.src = URL.createObjectURL(element.files[0]);
+
+        // Check if file is correct size
+        image.onload = () => {
+            if(image.width != assetWidth || image.height != assetHeight) {
+                invalidUpload(element, assetName+" must be "+assetWidth+"x"+assetHeight+" pixels in size.")
+            }
+            else { 
+                // Display cloned image
+                imageDisplay.onload = () => {
+                    imageDisplay.height = 144
+                    imageDisplay.style.display = "block"
+                    document.getElementById(asset+"Images").appendChild(imageDisplay)
+                }
+            }
+        }
+    }
+    // Set upload button text color to red if file is removed
+    else {
+        element.style.color = invalidFileColor
+    }
+}
+
+// Handle keyart when uploaded
+keyart.onchange = async () => {
+    await processAssetUpload(keyart, "Key Art", 1920, 1080, "jpg")
+}
 
 // Handle panorama when uploaded
 panorama.onchange = async () => {
@@ -26,7 +77,7 @@ panorama.onchange = async () => {
 
         // Check if file is jpg type
         if(!panorama.files[0].name.includes(".jpg")) {
-            invalidUpload(panorama, 'Panorama must be a .jpg file type.')
+            invalidUpload(panorama, 'Panorama must be a .jpg file type. Panorama cannot be automatically converted.')
         }
         else {
             // Create image
@@ -56,64 +107,14 @@ panorama.onchange = async () => {
     }
 }
 
-// Key art, partner art, pack icon, and world icon upload processing
-function processAssetUpload(element, assetName, assetWidth, assetHeight, assetFileType) {
-    asset = assetName.replace(" ","").toLowerCase()
-
-    // Get image element and reset it
-    try {document.getElementById(asset+"ImageDisplay").remove()} catch {}
-    var image = document.getElementById(asset+"Image");
-    var imageDisplay = image.cloneNode(true)
-    imageDisplay.id = asset+"ImageDisplay"
-    imageDisplay.style.display = "none"
-
-    if(element.value) {
-
-        // Check if file is jpg type
-        if(!element.files[0].name.includes("."+assetFileType)) {
-            invalidUpload(element, assetName+" must be a ."+assetFileType+" file type.")
-        }
-        else {
-            // Create image
-            element.style.color = validFileColor
-            image.src = URL.createObjectURL(element.files[0]);
-            imageDisplay.src = URL.createObjectURL(element.files[0]);
-
-            // Check if file is correct size
-            image.onload = () => {
-                if(image.width != assetWidth || image.height != assetHeight) {
-                    invalidUpload(element, assetName+" must be "+assetWidth+"x"+assetHeight+" pixels in size.")
-                }
-                else { 
-                    // Display cloned image
-                    imageDisplay.onload = () => {
-                        imageDisplay.height = 144
-                        imageDisplay.style.display = "block"
-                        document.getElementById(asset+"Images").appendChild(imageDisplay)
-                    }
-                }
-            }
-        }
-    }
-    // Set upload button text color to red if file is removed
-    else {
-        element.style.color = invalidFileColor
-    }
-}
-
-// Handle keyart when uploaded
-keyart.onchange = async () => {
-    processAssetUpload(keyart, "Key Art", 1920, 1080, "jpg")
-}
-
 // Handle partnerart when uploaded
 partnerart.onchange = async () => {
-    processAssetUpload(partnerart, "Partner Art", 1920, 1080, "png")
+    await processAssetUpload(partnerart, "Partner Art", 1920, 1080, "png")
 }
 
 // Handle packicon when uploaded
 packicon.onchange = async () => {
-    processAssetUpload(packicon, "Pack Icon", 256, 256, "jpg")
+    await processAssetUpload(packicon, "Pack Icon", 256, 256, "jpg")
 }
 
 // Handle screenshots when uploaded
@@ -138,8 +139,10 @@ screenshots.onchange = async () => {
 
             // Check file type
             if(!screenshot.name.includes(".jpg")) {
-                invalidUpload(screenshots, screenshot.name+" is an invalid file type. Screenshots should be .jpg")
-                breakLoop = true;
+                screenshots.files[i] = await(convertImage(screenshot, 1920, 1080, 'jpeg'))
+                alert('Automatically converted screenshot '+screenshots.files[i].name+' to .jpg file type.')
+                // invalidUpload(screenshots, screenshot.name+" is an invalid file type. Screenshots should be .jpg")
+                // breakLoop = true;
             }
 
             // Create image using screenshot texture to check size and format //
@@ -382,7 +385,7 @@ document.getElementById('name').addEventListener('input', function (e) { this.st
 document.getElementById('version').addEventListener('input', function (e) { this.style.width = setWidth(this); });
 document.getElementById('mcversion').addEventListener('input', function (e) { this.style.width = setWidth(this); });
 document.getElementById('manifestuuid').addEventListener('input', function (e) { this.style.width = setWidth(this); });
-document.getElementById('acronym').addEventListener('input', function (e) { this.style.width = setWidth(this); });
+document.getElementById('acronym').addEventListener('input', function (e) { this.value=this.value.toUpperCase(); this.style.width = setWidth(this); });
 document.getElementById('offertype').addEventListener('input', function (e) { showOfferSpecificFields(this.value) });
 
 // Show elements based on offer type selected
@@ -454,8 +457,6 @@ const showOfferSpecificFields = function (offertype) {
 
         nameInput.placeholder = 'Capybara Moai Island'
         nameInput.style.width = setWidth(nameInput)
-        acronymInput.placeholder = 'CBMI'
-        acronymInput.style.width = setWidth(acronymInput)      
     }
 }
 
@@ -554,9 +555,10 @@ packageButton.onclick = async function () {
                 download = true
             } catch(e) {alert(e)}
         }
-        else if(offertype == "world") {
+        else if(offertype.includes("world")) {
             try {
                 await packageWorld(zip)
+                await packageSkinpack(zip, true)
                 download = true
             } catch(e) {alert(e)}
         }
@@ -589,7 +591,7 @@ packageButton.onclick = async function () {
 }
 
 
-async function packageSkinpack(zip) {
+async function packageSkinpack(zip, isWorldOffer) {
 
     // Get skinpack info from input fields
     skinpackName = document.getElementById('name').value
@@ -609,10 +611,11 @@ async function packageSkinpack(zip) {
     uuid2 = uuid()
 
     // Create directories
-    zip.folder("Marketing Art")
-    zip.folder("Store Art")
     zip.folder("Content/skin_pack/texts")
-
+    if(!isWorldOffer) {
+        zip.folder("Marketing Art")
+        zip.folder("Store Art")
+    }
 
     // Create en_US.lang contents
     enUSFileContents = await(await fetch(templatesLoc+'skinpacks/en_US.txt')).text()
@@ -685,13 +688,16 @@ async function packageSkinpack(zip) {
     enUSFileContents = enUSFileContents.replace("$skinsLang", skinsLang)
 
 
-    // Create 800x450 key art image for thumbnail
-    thumbnailFile = await(convertImage(keyartFile, 800, 450, 'jpeg'))
+    if(!isWorldOffer) {
 
-    // Create marketing/store art files
-    zip.file('Marketing Art/'+skinpackID+'_MarketingKeyArt.jpg', keyartFile, {binary: true})
-    zip.file('Marketing Art/'+skinpackID+'_PartnerArt.png', partnerartFile, {binary: true})
-    zip.file('Store Art/'+skinpackID+'_Thumbnail_0.jpg', thumbnailFile, {binary: true})
+        // Create 800x450 key art image for thumbnail
+        thumbnailFile = await(convertImage(keyartFile, 800, 450, 'jpeg'))
+        
+        // Create marketing/store art files
+        zip.file('Marketing Art/'+skinpackID+'_MarketingKeyArt.jpg', keyartFile, {binary: true})
+        zip.file('Marketing Art/'+skinpackID+'_PartnerArt.png', partnerartFile, {binary: true})
+        zip.file('Store Art/'+skinpackID+'_Thumbnail_0.jpg', thumbnailFile, {binary: true})
+    }
 
     // Debug print files
     console.log('\n\nskins.json:\n'+skinsFileContents)
@@ -908,7 +914,7 @@ function createSkinPreview(skinImg) {
 }
 
 // Debug world packager
-// showOfferSpecificFields("world")
-// acronymInput.value = 'PRUE'
+// showOfferSpecificFields("world+skins")
+// acronymInput.value = 'PTWN'
 // mcversionInput.value = '1.19'
-// nameInput.value = 'Parkour Universe'
+// nameInput.value = 'Puppy Town'
