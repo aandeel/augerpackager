@@ -594,9 +594,9 @@ packageButton.onclick = async function () {
 async function packageSkinpack(zip, isWorldOffer) {
 
     // Get skinpack info from input fields
-    skinpackName = document.getElementById('name').value
+    skinpackName = document.getElementById('name').value.trim()
     skinpackID = skinpackName.replace(/[^0-9a-zA-Z]+/g,'')
-    version = document.getElementById('version').value.replaceAll('.',', ')
+    version = document.getElementById('version').value.replaceAll('.',', ').trim()
     skinsFileList = document.getElementById("fileNames").children
     skinsNameList = document.getElementById("skinNames").children
     skinsTypeList = document.getElementById("skinTypes").children
@@ -715,10 +715,10 @@ async function packageSkinpack(zip, isWorldOffer) {
 async function packageWorld(zip) {
 
     // Get world info from input fields
-    worldName = document.getElementById('name').value
-    acronym = document.getElementById('acronym').value
+    worldName = document.getElementById('name').value.trim()
+    acronym = document.getElementById('acronym').value.trim()
     worldID = worldName.replace(/[^0-9a-zA-Z]+/g,'')
-    version = document.getElementById('version').value.replaceAll('.',', ')
+    version = document.getElementById('version').value.replaceAll('.',', ').trim()
     mcversion = document.getElementById('mcversion').value.replaceAll('.',', ')+', 0'
     panoramaFile = document.getElementById('panorama').files[0]
     screenshotFiles = document.getElementById('screenshots').files
