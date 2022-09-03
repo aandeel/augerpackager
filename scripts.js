@@ -558,7 +558,8 @@ packageButton.onclick = async function () {
         else if(offertype.includes("world")) {
             try {
                 await packageWorld(zip)
-                await packageSkinpack(zip, true)
+                if(offertype.includes("skins"))
+                    await packageSkinpack(zip, true)
                 download = true
             } catch(e) {alert(e)}
         }
