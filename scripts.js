@@ -131,18 +131,18 @@ screenshots.onchange = async () => {
         // Set upload button text color to blue
         screenshots.style.color = validFileColor
 
-
-        var breakLoop;
         for (let i = 0; i < screenshots.files.length; i++) {
-            
+            var ignoreFile = false;
             const screenshot = screenshots.files[i]
 
-            // Check file type
-            if(!screenshot.name.includes(".jpg")) {
+            // Check file type and convert if possible
+            if(screenshot.name.includes(".png")) {
                 screenshots.files[i] = await(convertImage(screenshot, 1920, 1080, 'jpeg'))
                 alert('Automatically converted screenshot '+screenshots.files[i].name+' to .jpg file type.')
-                // invalidUpload(screenshots, screenshot.name+" is an invalid file type. Screenshots should be .jpg")
-                // breakLoop = true;
+            }
+            else if(!screenshot.name.includes(".jpg")) {
+                alert('Invalid file ' + screenshot.name + ' detected and ignored.')
+                ignoreFile = true;
             }
 
             // Create image using screenshot texture to check size and format //
@@ -156,16 +156,9 @@ screenshots.onchange = async () => {
                     // Check dimensions of screenshot
                     if(image.width != 1920 || image.height != 1080) {
                         invalidUpload(screenshots, screenshots.files[i].name+" must be 1920x1080 pixels in size, but is "+image.width+"x"+image.height+".")
-                        
-                        breakLoop = true; // break statement not working, so boolean flag to break loop
-
-                        // Delete all screenshots & end loop if invalid image detected
-                        for (let i = screenshotImages.length-1; i > 0; i--) {
-                            screenshotImages[i].remove();
-                        }
+                        ignoreFile = true;
                     }
-                    else if(!breakLoop) {
-
+                    else if(!ignoreFile) {
                         // Display image
                         var screenshotImage = document.getElementById("screenshotImage");
                         var newScreenshotImage = screenshotImage.cloneNode(true)
@@ -217,10 +210,12 @@ skins.onchange = async () => {
         skins.style.color = validFileColor
 
         // Show labels
-        freeCheckboxesLabel.style.display = "inline"
+        offertype = document.getElementById('offertype').value
         skinsFileListLabel.style.display = "inline"
         skinsNameListLabel.style.display = "inline"
         skinsTypeListLabel.style.display = "inline"
+        if (offertype == "skins")
+            freeCheckboxesLabel.style.display = "inline"
 
         for (let i = 0; i < skins.files.length; i++) {
             const skin = skins.files[i]
@@ -276,13 +271,16 @@ skins.onchange = async () => {
                     document.getElementById("skinPreviews").appendChild(newSkinPreview);
 
                     // Add free checkbox
-                    var skinPreview = document.getElementById("freeCheckbox");
-                    var newCheckbox = freeCheckbox.cloneNode(true);
-                    newCheckbox.removeAttribute("id");
-                    newCheckbox.style.display = "inline";
-                    newCheckbox.style.top = i*22.185+'px'
-                    newCheckbox.value = i
-                    document.getElementById("freeCheckboxes").appendChild(newCheckbox);
+                    if (offertype == "skins") {
+                        freeCheckboxesLabel.style.display = "inline"
+                        var skinPreview = document.getElementById("freeCheckbox");
+                        var newCheckbox = freeCheckbox.cloneNode(true);
+                        newCheckbox.removeAttribute("id");
+                        newCheckbox.style.display = "inline";
+                        newCheckbox.style.top = i*22.185+'px'
+                        newCheckbox.value = i
+                        document.getElementById("freeCheckboxes").appendChild(newCheckbox);
+                    }
 
                     // Fill out Details info
                     if(skinImg.width == 64) {
@@ -311,7 +309,6 @@ skins.onchange = async () => {
         }
         setTimeout(() => {
             for(let i = 1; i < skinsPreviewsList.length; i++) {
-                console.log(skinsPreviewsList[i].src)
                 skinsPreviewsList[i].style.top = (i-1)*22.185+'px'
                 skinsPreviewsList[i].style.display = "inline";
             }
@@ -848,6 +845,8 @@ async function packageWorld(zip) {
 
     // Create screenshots
     for(let i = 0; i < screenshotFiles.length; i++) {
+        if(!screenshotFiles[i].name.includes(".jpg")) { continue }
+
         // Create  screenshot (Marketing Art)
         zip.file('Marketing Art/'+worldID+'_MarketingScreenshot_'+i+'.jpg', screenshotFiles[i], {binary: true})
 
