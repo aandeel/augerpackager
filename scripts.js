@@ -531,9 +531,9 @@ packageButton.onclick = async function () {
     else if(document.getElementById('keyart').style.color != validFileColor) {
         alert('You need to upload a Key Art image!')
     }
-    else if(document.getElementById('partnerart').style.color != validFileColor) {
-        alert('You need to upload a Partner Art image!')
-    }
+    // else if(document.getElementById('partnerart').style.color != validFileColor) {
+    //     alert('You need to upload a Partner Art image!')
+    // }
     else if(document.getElementById('version').value != '1.0.0' && !document.getElementById('manifestuuid').value) {
         alert('You need to enter the Manifest UUID from a previous version of this offer!\n\nIf this is the first version, enter "1.0.0" as the Version.')
     }
@@ -550,7 +550,10 @@ packageButton.onclick = async function () {
             try { 
                 await packageSkinpack(zip)
                 download = true
-            } catch(e) {alert(e)}
+            } catch(e) {
+                console.log(e)
+                alert('An error occured. Check the console.')
+            }
         }
         else if(offertype.includes("world")) {
             try {
@@ -558,7 +561,10 @@ packageButton.onclick = async function () {
                 if(offertype.includes("skins"))
                     await packageSkinpack(zip, true)
                 download = true
-            } catch(e) {alert(e)}
+            } catch(e) {
+                console.log(e)
+                alert('An error occured. Check the console.')
+            }
         }
         else {
             alert('Packaging this type of Offer is not yet supported.')
@@ -641,9 +647,9 @@ async function packageSkinpack(zip, isWorldOffer) {
         
         // Get skin info from input fields
         skinGeometry = skinsTypeList[i].value
-        skinName = skinsNameList[i].value
+        skinName = skinsNameList[i].value.trim()
         skinID = skinName.replace(/[^0-9a-zA-Z]+/g,'')
-        skinFilename = skinsFileList[i].value
+        skinFilename = skinsFileList[i].value.trim()
         skinFile = skinFiles.find(element => element.name === skinFilename)
 
         // Get pay type by iterating through each checkbox by ID (.value) because the order is jumbled for some reason
