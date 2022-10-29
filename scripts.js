@@ -699,8 +699,8 @@ async function packageSkinpack(zip, isWorldOffer) {
         
         // Create marketing/store art files
         zip.file('Marketing Art/'+skinpackID+'_MarketingKeyArt.jpg', keyartFile, {binary: true})
-        zip.file('Marketing Art/'+skinpackID+'_PartnerArt.png', partnerartFile, {binary: true})
         zip.file('Store Art/'+skinpackID+'_Thumbnail_0.jpg', thumbnailFile, {binary: true})
+        if (partnerartFile) { zip.file('Marketing Art/'+skinpackID+'_PartnerArt.png', partnerartFile, {binary: true}) }
     }
 
     // Debug print files
@@ -843,11 +843,11 @@ async function packageWorld(zip) {
 
     // Create marketing/store art files and world icon
     zip.file('Marketing Art/'+worldID+'_MarketingKeyArt.jpg', keyartFile, {binary: true})
-    zip.file('Marketing Art/'+worldID+'_PartnerArt.png', partnerartFile, {binary: true})
     zip.file('Store Art/'+worldID+'_Thumbnail_0.jpg', thumbnailFile, {binary: true})
     zip.file('Store Art/'+worldID+'_panorama_0.jpg', panoramaFile, {binary: true})
     zip.file('Store Art/'+worldID+'_packicon_0.jpg', packiconFile, {binary: true})
     zip.file(worldpath+'world_icon.jpeg', thumbnailFile, {binary: true})
+    if (partnerartFile) { zip.file('Marketing Art/'+worldID+'_PartnerArt.png', partnerartFile, {binary: true}) }
 
     // Create screenshots
     for(let i = 0; i < screenshotFiles.length; i++) {
