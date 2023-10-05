@@ -723,7 +723,7 @@ async function packageWorld(zip) {
     acronym = document.getElementById('acronym').value.trim()
     worldID = worldName.replace(/[^0-9a-zA-Z]+/g,'')
     version = document.getElementById('version').value.replaceAll('.',', ').trim()
-    mcversion = document.getElementById('mcversion').value.replaceAll('.',', ')+', 0'
+    mcversion = document.getElementById('mcversion').value.replaceAll('.',', ')
     panoramaFile = document.getElementById('panorama').files[0]
     screenshotFiles = document.getElementById('screenshots').files
     keyartFile = document.getElementById('keyart').files[0]
