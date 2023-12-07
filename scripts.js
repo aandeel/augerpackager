@@ -837,6 +837,7 @@ async function packageWorld(zip) {
     manifestFileContents = manifestFileContents.replace("$uuid1", uuid1)
     manifestFileContents = manifestFileContents.replace("$uuid2", uuid2)
     manifestFileContents = manifestFileContents.replaceAll("$version", version)
+    manifestFileContents = manifestFileContents.replaceAll("$mcversion", mcversion)
 
     // Create 800x450 key art image for thumbnail and world icon
     thumbnailFile = await(convertImage(keyartFile, 800, 450, 'jpeg'))
