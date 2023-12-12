@@ -1,2 +1,2 @@
 pack.name=$worldName
-pack.description=Created By:\nYeggs
+pack.description=Created by Yeggs
