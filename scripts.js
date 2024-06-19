@@ -778,13 +778,13 @@ async function packageWorld(zip) {
         zip.file(worldpath+'world_resource_packs.json', worldRPContents)
 
         // Create resourcepack manifest.json
-        rpManifestFileContents = await(await fetch(templatesLoc+'worlds/rp_manifest.txt')).text()
-        rpManifestFileContents = rpManifestFileContents.replace("$uuid1", rpUUID)
-        rpManifestFileContents = rpManifestFileContents.replace("$uuid2", otherUUID)
-        rpManifestFileContents = rpManifestFileContents.replaceAll("$version", version)
-        rpManifestFileContents = rpManifestFileContents.replaceAll("$mcversion", mcversion)
-        zip.file(worldpath+'resource_packs/RP_'+acronym+'/manifest.json', rpManifestFileContents)
-        console.log('\n\nworld_resource_packs.json:\n'+rpManifestFileContents)
+        // rpManifestFileContents = await(await fetch(templatesLoc+'worlds/rp_manifest.txt')).text()
+        // rpManifestFileContents = rpManifestFileContents.replace("$uuid1", rpUUID)
+        // rpManifestFileContents = rpManifestFileContents.replace("$uuid2", otherUUID)
+        // rpManifestFileContents = rpManifestFileContents.replaceAll("$version", version)
+        // rpManifestFileContents = rpManifestFileContents.replaceAll("$mcversion", mcversion)
+        // zip.file(worldpath+'resource_packs/RP_'+acronym+'/manifest.json', rpManifestFileContents)
+        // console.log('\n\nworld_resource_packs.json:\n'+rpManifestFileContents)
 
         // Create pack icon
         zip.file(worldpath+'resource_packs/RP_'+acronym+'/pack_icon.png', packiconFilePNG, {binary: true})
@@ -808,13 +808,13 @@ async function packageWorld(zip) {
         zip.file(worldpath+'world_behavior_packs.json', worldBPContents)
 
         // Create behaviorpack manifest.json
-        bpManifestFileContents = await(await fetch(templatesLoc+'worlds/bp_manifest.txt')).text()
-        bpManifestFileContents = bpManifestFileContents.replace("$uuid1", bpUUID)
-        bpManifestFileContents = bpManifestFileContents.replace("$uuid2", otherUUID)
-        bpManifestFileContents = bpManifestFileContents.replaceAll("$version", version)
-        bpManifestFileContents = bpManifestFileContents.replaceAll("$mcversion", mcversion)
-        zip.file(worldpath+'behavior_packs/BP_'+acronym+'/manifest.json', bpManifestFileContents)
-        console.log('\n\nworld_behavior_packs.json:\n'+bpManifestFileContents)
+        // bpManifestFileContents = await(await fetch(templatesLoc+'worlds/bp_manifest.txt')).text()
+        // bpManifestFileContents = bpManifestFileContents.replace("$uuid1", bpUUID)
+        // bpManifestFileContents = bpManifestFileContents.replace("$uuid2", otherUUID)
+        // bpManifestFileContents = bpManifestFileContents.replaceAll("$version", version)
+        // bpManifestFileContents = bpManifestFileContents.replaceAll("$mcversion", mcversion)
+        // zip.file(worldpath+'behavior_packs/BP_'+acronym+'/manifest.json', bpManifestFileContents)
+        // console.log('\n\nworld_behavior_packs.json:\n'+bpManifestFileContents)
 
         // Create pack icon
         zip.file(worldpath+'behavior_packs/BP_'+acronym+'/pack_icon.png', packiconFilePNG, {binary: true})
